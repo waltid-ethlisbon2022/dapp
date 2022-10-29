@@ -23,11 +23,11 @@
                                 class="wallect-connect-btn btn btn-primary my-2 fw-bold _btn">Connect Wallet using SSI over WalletConnect</a>
                         </p> -->
                     
-                        <!-- <div v-show="protocolLog.length > 0" class="text-center">
+                        <div v-show="verifyStarted" class="text-center">
                             <canvas :id="'qr-code'" />
-                        </div> -->
+                        </div>
 
-                        <div class="userProfile">
+                        <div v-if="verificationResult != null" class="userProfile">
                             <img class="profilePicture" src="https://avatars.githubusercontent.com/u/55081379?v=4" />
                             <br />
                             <span><i class="bi bi-check"></i> First Name: Phil </span><br />
@@ -68,7 +68,9 @@ const ChatClient = require("@walletconnect/chat-client").ChatClient
 export default {
     data() {
         return {
-            protocolLog: []
+            protocolLog: [],
+            verifyStarted: false,
+            verificationResult: null
         }
     },
     async asyncData({ $axios }) {
@@ -80,7 +82,6 @@ export default {
             return encodeURIComponent(str)
         },
         initWalletConnectChat: async function() {
-
             let dappAccount = `eip155:1:${config.ethAccount}`
 
             this.protocolLog.push(`Initializing WalletConnect Chat Client for ${dappAccount}`)
@@ -96,7 +97,7 @@ export default {
 
             this.protocolLog.push(`Register client returned: ${retReg}`)
             console.log(this.protocolLog);
-
+            this.verifyStarted = true
             chatClient.on("chat_invite", async (event) => {
                 this.protocolLog.push("Client received invite");
                 
@@ -127,12 +128,13 @@ export default {
 
 
             chatClient.on("chat_message", async (event) => {
+                this.verifyStarted = false
                 console.log(event);
                 console.log( "Credential received: " + event.params.message);
                 this.protocolLog.push("Credential received: " + event.params.message);
-                const verificationResponse = await this.$axios.$post("/verifier-api/verify/walletconnect", event.params.message)
-                console.log(verificationResponse)
-                this.protocolLog.push("Verification result is valid: " + verificationResponse.isValid)
+                this.verificationResult = await this.$axios.$post("/verifier-api/verify/walletconnect", event.params.message)
+                console.log(this.verificationResult)
+                this.protocolLog.push("Verification result is valid: " + this.verificationResult.isValid)
             });
 
         },
