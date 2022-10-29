@@ -130,9 +130,9 @@ export default {
                 console.log(event);
                 console.log( "Credential received: " + event.params.message);
                 this.protocolLog.push("Credential received: " + event.params.message);
-               // const sessionInfo = await this.$axios.$get("/api/wallet/presentation/create?type=" + event.params.message)
-                //this.$router.replace("/CredentialRequest/?sessionId=" + sessionInfo.id)
-                
+                const verificationResponse = await this.$axios.$post("/verifier-api/verify/walletconnect", event.params.message)
+                console.log(verificationResponse)
+                this.protocolLog.push("Verification result is valid: " + verificationResponse.isValid)
             });
 
         },
