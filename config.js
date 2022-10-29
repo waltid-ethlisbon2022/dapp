@@ -14,6 +14,7 @@ const config = {
         settings: false,
         connections: false
     },
-    home: "/Credentials"
+    home: "/Credentials",
+    walletConnectId: "e0e0fb20c6dde16d3493485bfeb4e15f"
 }
 export{config}

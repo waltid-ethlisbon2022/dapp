@@ -37,6 +37,12 @@
 </template>
 
 <script>
+import {config} from '/config.js'
+
+if (typeof window !== "undefined")
+     window.global = window;
+const ChatClient = require("@walletconnect/chat-client").ChatClient
+
 export default {
     data() {
         return {
@@ -52,6 +58,14 @@ export default {
     methods: {
         encodeURIComponent(str) {
             return encodeURIComponent(str)
+        },
+        initWalletConnectChat: async function() {
+      
+        console.log(config.walletConnectId)
+        
+        const chatClient = await ChatClient.init({
+            projectId: config.walletConnectId
+           })
         }
     }
 }
