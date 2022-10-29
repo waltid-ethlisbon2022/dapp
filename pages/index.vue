@@ -13,7 +13,7 @@
 
                                                                                  
                         <p class="lead connect-txt mt-6">
-                            Start Wallet Connect Chat/SSI protocol and scan the QR code in order to connect your wallet. </p>
+                            Start Wallet Connect Chat/SSI protocol <br /> and scan the QR code in order to connect your wallet and exchange W3C Verifiable Credentials. </p>
 
 
                         <button class="wallect-connect-btn btn btn-primary  my-2 fw-bold _btn" @click="initWalletConnectChat">Start Protocol</button>
@@ -31,7 +31,7 @@
                         <div class="protocolLog mt-3">
 
                             <ul>
-                                <li v-for="line in protocolLog">{{ line }}</li>
+                                <li v-for="line in protocolLog" :key="line">{{ line }}</li>
                             </ul>
                                 
                         </div>           
