@@ -2,35 +2,23 @@
     <div>
         <header>
             <Notice
-                text="In practice the verifier would verify the credential(s) and eventually provide access to products and services">
+                text=": Wallet Connect meets Self-Sovereign Identity">
             </Notice>
         </header>
         <main class="_home d-flex justify-content-centr align-items-center">
             <section class="py-5 text-center container">
                 <div class="row py-lg-5">
                     <div class="col-lg-6 col-md-8 mx-auto">
-                        <img src="/favicon.png" alt="Logo" />
-                        <h2 class="fw-normal">
-                            Welcome to the </h2>
-                        <h2 class="fw-bold">
-                            Demo Verifier Portal </h2>
-
-                            <button class="btn btn-primary" @click="initWalletConnectChat">Start Client</button>
-
-                        <p class="lead text-muted">
-                            Connect your wallet and share<br>your credentials to access services. </p>
-                        <p>
-                            <a :href="'/verifier-api/present/?walletId=' + wallets[0].id + '&schemaUri=' + vidSchemaUri + '&ui=http://foo'"
-                                class="btn btn-primary my-2 fw-bold _btn">Connect Wallet using <b>Verifiable ID</b></a>
-                                <a :href="'/xdevice/' + encodeURIComponent(vidSchemaUri)"
-                                    class="btn btn-primary my-2 fw-bold _btn"><i class="bi bi-upc-scan" /></a>
-
-                            <a :href="'/verifier-api/present/?walletId=' + wallets[0].id + '&schemaUri=' + vidSchemaUri1 + '&ui=http://foo'"
-                                class="btn btn-primary my-2 fw-bold _btn">Connect Wallet using <b>Open Badge Credential</b></a>
-
-                            <a :href="'/verifier-api/present/?walletId=' + wallets[0].id + '&schemaUri=' + bidSchemaUri"
-                                class="btn btn-success my-2 fw-bold _btn">Connect Wallet using <b>Bank ID</b></a>
+                        <img class="p-5" src="https://walletconnect.com/images/logo.svg" alt="Logo" />
+                        <p >
+                            <a :href="'/xdevice/' + encodeURIComponent(vidSchemaUri)"
+                                class="wallect-connect-btn btn btn-primary  my-2 fw-bold _btn">Connect Wallet using SSI over WalletConnect</a>
                         </p>
+                                                         
+                        <p class="lead connect-txt mt-6">
+                            Connect your wallet and share<br>your credentials to access services. </p>
+                     
+                        <button class="btn btn-primary" @click="initWalletConnectChat">Start Client</button>
                         <p class="text-muted fw-bold">© 2022 walt.id</p>
                     </div>
                 </div>
@@ -83,10 +71,22 @@ export default {
 <style scoped>
 ._home {
     height: 100vh;
+    background: url("https://i.ibb.co/0VTB7mP/bcg-background.jpg") no-repeat center fixed;
+    background-size: cover;
 }
 
 ._btn {
     font-size: 18px;
     padding: 10px 55px;
+}
+
+.connect-txt {
+    color: white;
+}
+
+.wallect-connect-btn{
+
+    background-color: transparent;
+     border-color: white!important;
 }
 </style>
