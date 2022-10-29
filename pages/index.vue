@@ -23,12 +23,23 @@
                                 class="wallect-connect-btn btn btn-primary my-2 fw-bold _btn">Connect Wallet using SSI over WalletConnect</a>
                         </p> -->
                     
-                        <div v-show="protocolLog.length > 0" class="text-center">
+                        <!-- <div v-show="protocolLog.length > 0" class="text-center">
                             <canvas :id="'qr-code'" />
+                        </div> -->
+
+                        <div class="userProfile">
+                            <img class="profilePicture" src="https://avatars.githubusercontent.com/u/55081379?v=4" />
+                            <br />
+                            <span><i class="bi bi-check"></i> First Name: Phil </span><br />
+                            <span><i class="bi bi-check"></i> Last Name: Peace </span><br />
+                            <span><i class="bi bi-check"></i> Address: Some Street 45</span><br />
+                            <span><i class="bi bi-check"></i> Country: Austria </span><br />
+                            <span><i class="bi bi-check"></i> Email: phil@example.xyz </span><br />
+                            <span><i class="bi bi-check"></i> Tel.nr.: 0043 1234567 </span><br />
                         </div>
 
 
-                        <div class="protocolLog mt-3">
+                        <div class="protocolLog mt-3  overflow-hidden ...">
 
                             <ul>
                                 <li v-for="line in protocolLog" :key="line">{{ line }}</li>
@@ -141,6 +152,7 @@ export default {
     height: 100vh;
     background: url("https://i.ibb.co/0VTB7mP/bcg-background.jpg") no-repeat center fixed;
     background-size: cover;
+    background-color: darkgreen;
 }
 
 ._btn {
@@ -161,5 +173,15 @@ export default {
     background-color: black;
     color:greenyellow;
     text-align: left;
+}
+
+.userProfile {
+    margin: 10pt;
+    color: white;
+}
+
+.profilePicture {
+    width: 40%;
+    border-radius: 50%;
 }
 </style>
