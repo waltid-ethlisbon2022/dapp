@@ -1,7 +1,7 @@
 <template>
     <div>
         <header>
-            <Notice
+            <Notice v-show="!verifyStarted"
                 text=": Wallet Connect meets Self-Sovereign Identity">
             </Notice>
         </header>
@@ -11,18 +11,18 @@
                     <div class="col-lg-6 col-md-8 mx-auto">
                         <img class="p-5" src="https://walletconnect.com/images/logo.svg" alt="Logo" />
 
-                                                                                 
+
                         <p class="lead connect-txt mt-6">
                             Start Wallet Connect Chat/SSI protocol <br /> and scan the QR code in order to connect your wallet and exchange W3C Verifiable Credentials. </p>
 
 
                         <button class="wallect-connect-btn btn btn-primary  my-2 fw-bold _btn" @click="initWalletConnectChat">Start Protocol</button>
-<!-- 
+<!--
                         <p >
                             <a :href="'/xdevice/'"
                                 class="wallect-connect-btn btn btn-primary my-2 fw-bold _btn">Connect Wallet using SSI over WalletConnect</a>
                         </p> -->
-                    
+
                         <div v-show="verifyStarted" class="text-center">
                             <canvas :id="'qr-code'" />
                         </div>
@@ -44,9 +44,9 @@
                             <ul>
                                 <li v-for="line in protocolLog" :key="line">{{ line }}</li>
                             </ul>
-                                
-                        </div>           
-                     
+
+                        </div>
+
 
                         <p class="text-muted fw-bold">© 2022 walt.id</p>
                     </div>
@@ -88,7 +88,7 @@ export default {
             console.log(this.protocolLog)
 
             console.log(config.walletConnectId)
-        
+
             const chatClient = await ChatClient.init({
                 projectId: config.walletConnectId
             })
@@ -100,9 +100,9 @@ export default {
             this.verifyStarted = true
             chatClient.on("chat_invite", async (event) => {
                 this.protocolLog.push("Client received invite");
-                
+
                 console.log(event)
-        
+
                 const topic = await chatClient.accept({id: event.id}).catch(e => {console.error(e)})
 
                 this.protocolLog.push(`Client accepted. topic: ${topic}`);
@@ -115,7 +115,7 @@ export default {
                         timestamp: Date.now(),
                     },
                 }).catch(e => {console.error(e)});
-                
+
             });
 
             chatClient.on("chat_joined", async (event) => {
@@ -151,7 +151,6 @@ export default {
 
 <style scoped>
 ._home {
-    height: 100vh;
     background: url("https://i.ibb.co/0VTB7mP/bcg-background.jpg") no-repeat center fixed;
     background-size: cover;
     background-color: darkgreen;
