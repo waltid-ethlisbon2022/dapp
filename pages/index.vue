@@ -13,12 +13,19 @@
 
                                                                                  
                         <p class="lead connect-txt mt-6">
-                            Connect your wallet and share<br>your credentials to access services. </p>
+                            Start Wallet Connect Chat/SSI protocol and scan the QR code in order to connect your wallet. </p>
 
+
+                        <button class="wallect-connect-btn btn btn-primary  my-2 fw-bold _btn" @click="initWalletConnectChat">Start Protocol</button>
+<!-- 
                         <p >
                             <a :href="'/xdevice/'"
-                                class="wallect-connect-btn btn btn-primary  my-2 fw-bold _btn">Connect Wallet using SSI over WalletConnect</a>
-                        </p>
+                                class="wallect-connect-btn btn btn-primary my-2 fw-bold _btn">Connect Wallet using SSI over WalletConnect</a>
+                        </p> -->
+                    
+                        <div v-show="protocolLog.length > 0" class="text-center">
+                            <canvas :id="'qr-code'" />
+                        </div>
 
 
                         <div class="protocolLog mt-3">
@@ -29,7 +36,7 @@
                                 
                         </div>           
                      
-                        <button class="btn btn-primary" @click="initWalletConnectChat">Start Client</button>
+
                         <p class="text-muted fw-bold">© 2022 walt.id</p>
                     </div>
                 </div>
@@ -41,6 +48,7 @@
 <script>
 import { INVALID_REQUEST } from '@walletconnect/jsonrpc-utils';
 import {config} from '/config.js'
+import QRious from "qrious"
 
 if (typeof window !== "undefined")
      window.global = window;
@@ -49,7 +57,7 @@ const ChatClient = require("@walletconnect/chat-client").ChatClient
 export default {
     data() {
         return {
-            protocolLog: ["App loaded ..."]
+            protocolLog: []
         }
     },
     async asyncData({ $axios }) {
@@ -116,7 +124,14 @@ export default {
                 
             });
 
-        }
+        },
+    },
+    mounted() {
+            new QRious({
+                element: document.getElementById('qr-code'),
+                value: `eip155:1:${config.ethAccount}`,
+                size: 300
+            })
     }
 }
 </script>
