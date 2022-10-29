@@ -14,6 +14,9 @@
                             Welcome to the </h2>
                         <h2 class="fw-bold">
                             Demo Verifier Portal </h2>
+
+                            <button class="btn btn-primary" @click="initWalletConnectChat">Start Client</button>
+
                         <p class="lead text-muted">
                             Connect your wallet and share<br>your credentials to access services. </p>
                         <p>
@@ -60,12 +63,18 @@ export default {
             return encodeURIComponent(str)
         },
         initWalletConnectChat: async function() {
-      
-        console.log(config.walletConnectId)
+
+            let dappAccount = `eip155:1:${config.ethAccount}`
+            console.log(`Initializing WalletConnect Chat Client for ${dappAccount} ...`)
+
+            console.log(config.walletConnectId)
         
-        const chatClient = await ChatClient.init({
-            projectId: config.walletConnectId
-           })
+            const chatClient = await ChatClient.init({
+                projectId: config.walletConnectId
+            })
+
+            await chatClient.register({ account: `${dappAccount}` });
+
         }
     }
 }
